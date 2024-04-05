@@ -1,0 +1,4 @@
+# Add gitignore files that are generated
+*.class
+*.log
+*.jar
