@@ -1,49 +1,48 @@
-public class complex {
-    double real, img;
+class complex {
+    double real, imag;
 
-    complex(double real, double img) {
+    complex(double real, double imag) {
         this.real = real;
-        this.img = img;
+        this.imag = imag;
     }
-    complex(){
+
+    complex() {
         real = 0;
-        img = 0;
+        imag = 0;
     }
 
-    void add(complex c1, complex c2) {
-        real = c1.real + c2.real;
-        img = c1.img + c2.img;
-
-        System.out.println("Addition - Real: " + real + ", Imaginary: " + img);
-    }
-    void subtract(complex c1, complex c2) {
-        real = c1.real - c2.real;
-        img = c1.img - c2.img;
-
-        System.out.println("Subtraction - Real: " + real + ", Imaginary: " + img);
-    }
-    
-    void multiply(complex c1, complex c2) {
-        real = c1.real * c2.real - c1.img * c2.img;
-        img = c1.real * c2.img + c1.img * c2.real;
-
-        System.out.println("Multiplication - Real: " + real + ", Imaginary: " + img);
+    complex add(complex c) {
+        return new complex(this.real + c.real, this.imag + c.imag);
     }
 
-    void divide(complex c1, complex c2) {
-        double denominator = c2.real * c2.real + c2.img * c2.img;
-        real = (c1.real * c2.real + c1.img * c2.img) / denominator;
-        img = (c1.img * c2.real - c1.real * c2.img) / denominator;
-
-        System.out.println("Division - Real: " + real + ", Imaginary: " + img);
+    complex subtract(complex c) {
+        return new complex(this.real - c.real, this.imag - c.imag);
     }
+
+    complex multiply(complex c) {
+        return new complex(this.real * c.real - this.imag * c.imag, this.real * c.imag + this.imag * c.real);
+    }
+
+    complex divide(complex c) {
+        double denominator = c.real * c.real + c.imag * c.imag;
+        return new complex((this.real * c.real + this.imag * c.imag) / denominator,
+                (this.imag * c.real - this.real * c.imag) / denominator);
+    }
+
     public static void main(String args[]) {
         complex c1 = new complex(3.5, 5.5);
         complex c2 = new complex(4.5, 6.5);
-        complex temp = new complex();
-        temp.add(c1, c2);
-        temp.subtract(c1, c2);
-        temp.multiply(c1, c2);
-        temp.divide(c1, c2);
+
+        complex sum = c1.add(c2);
+        System.out.println("Addition - Real: " + sum.real + ", Imaginary: " + sum.imag);
+
+        complex difference = c1.subtract(c2);
+        System.out.println("Subtraction - Real: " + difference.real + ", Imaginary: " + difference.imag);
+
+        complex product = c1.multiply(c2);
+        System.out.println("Multiplication - Real: " + product.real + ", Imaginary: " + product.imag);
+
+        complex quotient = c1.divide(c2);
+        System.out.println("Division - Real: " + quotient.real + ", Imaginary: " + quotient.imag);
     }
 }
