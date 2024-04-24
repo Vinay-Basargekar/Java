@@ -1,72 +1,75 @@
-class Employee {
-    int emp_id; 
-    String address; 
-    String mail_id; 
-    String mobile_no;
+class Employee{
+    int emp_id;
+    String emp_name;
+    int MobileNumber;
+    String address;
+    String mail;
 
-    Employee(int emp_id, String address, String mail_id, String mobile_no){
+    double basicPay;
+
+    Employee(int emp_id,String emp_name,int MobileNumber,String address,String mail,double basicPay){
         this.emp_id = emp_id;
+        this.emp_name = emp_name;
+        this.MobileNumber = MobileNumber;
         this.address = address;
-        this.mail_id = mail_id;
-        this.mobile_no = mobile_no;
+        this.mail = mail;
+        this.basicPay = basicPay;
+    }
+
+    void GeneratePaySlip(){
+        double da = 0.97 * basicPay;
+        double hra = 0.10 * basicPay;
+        double pf = 0.12 * basicPay;
+        double staffClub = 0.01 * basicPay;
+        double grossPay = basicPay + da + hra;
+        double netPay = grossPay - pf - staffClub;
+
+        System.out.println("Employee Name: "+emp_name);
+        System.out.println("Employee ID: "+emp_id);
+        System.out.println("Gross Pay: "+grossPay);
+        System.out.println("Net Pay: "+netPay);
     }
 }
 
-class Prof extends Employee {
-    double basic_pay;
-
-    Prof(int emp_id, String address, String mail_id, String mobile_no, double basic_pay){
-        super(emp_id, address, mail_id, mobile_no);
-        this.basic_pay = basic_pay;
+class Programmer extends Employee{
+    Programmer(int emp_id, String emp_name, int MobileNumber, String address, String mail, double basicPay) {
+        super(emp_id, emp_name, MobileNumber, address, mail, basicPay);
     }
-    
-    public double calGrossSal(){
-        double da = 0.97 * basic_pay;
-        double hra = 0.10 * basic_pay;
-        double pf = 0.12 * basic_pay;
-        double staff_fund = 0.001 * basic_pay;
-        double totalPay = (basic_pay + da) - (hra + pf + staff_fund);
-
-        return totalPay;
-    }
-
-    public double netPay(){
-        double gross = calGrossSal();
-        double pf = 0.12 * basic_pay;
-
-        return gross - pf;
+    public void GeneratePaySlip(){
+        System.out.println("\nProgrammer Pay Slip:");
+        super.GeneratePaySlip();
     }
 }
 
-class AssoProf extends Prof {
-    double basic_pay;
-
-    AssoProf(int emp_id, String address, String mail_id, String mobile_no, double basic_pay){
-        super(emp_id, address, mail_id, mobile_no,basic_pay);
+class AssistantProf extends Employee{
+    AssistantProf(int emp_id, String emp_name, int MobileNumber, String address, String mail, double basicPay) {
+        super(emp_id, emp_name, MobileNumber, address, mail, basicPay);
+    }
+    public void GeneratePaySlip(){
+        System.out.println("\nAssistant Professor Pay Slip:");
+        super.GeneratePaySlip();
     }
 }
 
-class AssProf extends Prof {
-    double basic_pay;
-
-    AssProf(int emp_id, String address, String mail_id, String mobile_no, double basic_pay){
-        super(emp_id, address, mail_id, mobile_no,basic_pay);
+class AssociateProf extends Employee{
+    AssociateProf(int emp_id, String emp_name, int MobileNumber, String address, String mail, double basicPay) {
+        super(emp_id, emp_name, MobileNumber, address, mail, basicPay);
+    }
+    public void GeneratePaySlip(){
+        System.out.println("\nAssociate Professor Pay Slip:");
+        super.GeneratePaySlip();
     }
 }
 
-public class emp {
+class emp{
     public static void main(String[] args) {
-        Prof professor = new Prof(1001, "123 Main St", "prof@example.com", "1234567890", 50000.0);
-        AssoProf associateProfessor = new AssoProf(1002, "456 Elm St", "assocprof@example.com", "9876543210", 40000.0);
-        AssProf assistantProfessor = new AssProf(1003, "789 Oak St", "asstprof@example.com", "5678901234", 30000.0);
+        Programmer p = new Programmer(1,"Rahul",1234567890,"Bangalore","Rahul@12.com",50000);
+        AssistantProf a = new AssistantProf(2,"Raj",1234567890,"Bangalore","Raj@21.in",60000);
+        AssociateProf ap = new AssociateProf(3,"Ravi",1234567890,"Bangalore","Ravi@.com",70000);
 
-        System.out.println("Professor's Gross Salary : ₹" + professor.calGrossSal());
-        System.out.println("Professor's Net Salary : ₹" + professor.netPay());
-
-        System.out.println("Associate Professor's Gross Salary : ₹" + AssProf.calGrossSal());
-        System.out.println("Associate Professor's Net Salary : ₹" + AssProf.netPay);
-
-        System.out.println("Assistant Professor's Gross Salary : ₹" + assistantProfessor.calculateGrossSalary());
-System.out.println("Assistant Professor's Net Salary : ₹" + assistantProfessor.calculateNetSalary());
+        p.GeneratePaySlip();
+        a.GeneratePaySlip();
+        ap.GeneratePaySlip();
     }
+
 }
